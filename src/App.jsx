@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { 
-  MapPin, Clock, Plane, Home, Utensils, Camera, Moon, 
+import {
+  MapPin, Clock, Plane, Home, Utensils, Camera, Moon,
   Navigation, Sun, Ticket, Coffee, Ship, Mountain,
-  IceCream
+  IceCream, ExternalLink
 } from 'lucide-react';
 
 // 行程資料定義
@@ -33,7 +33,7 @@ const itineraryData = {
       time: "17:00 - 18:00",
       title: "移動至住宿地點",
       location: "香港住宿",
-      description: "搭乘機場快線或巴士前往預訂的飯店辦理 Check-in。",
+      description: "前往預訂的飯店辦理 Check-in，稍作休息。",
       icon: <Home className="w-6 h-6" />,
       color: "bg-indigo-500",
       link: "https://maps.app.goo.gl/rmFEbKMeeH2AMX4A9?g_st=ic"
@@ -51,22 +51,23 @@ const itineraryData = {
     {
       id: "1-5",
       time: "19:30 - 21:30",
-      title: "廟街夜市走走拍拍",
-      location: "廟街夜市",
-      description: "感受道地的香港夜生活氣氛。",
+      title: "廟街夜市與佳佳甜品",
+      location: "廟街夜市 / 佳佳甜品",
+      description: "感受道地的香港夜市氣氛，並品嚐連續多年獲得米其林推薦的佳佳甜品（芝麻糊、核桃露）。",
       icon: <Camera className="w-6 h-6" />,
       color: "bg-purple-500",
-      link: "https://maps.app.goo.gl/7d3p22cf31H1Ksia9?g_st=ic"
+      link: "https://maps.app.goo.gl/7d3p22cf31H1Ksia9?g_st=ic",
+      secondaryLink: "https://maps.app.goo.gl/PzZgcBK4FgiUQwNX8?g_st=ic"
     },
     {
       id: "1-6",
       time: "深夜時段",
-      title: "宵夜 - 十八座狗仔粉",
-      location: "十八座狗仔粉",
-      description: "深夜暖胃首選，品嚐經典狗仔粉。",
+      title: "宵夜 - 華星冰室",
+      location: "華星冰室 Capital Café",
+      description: "經典的港式冰室，推薦炒蛋吐司與奶茶，感受濃濃的懷舊氣息。",
       icon: <Moon className="w-6 h-6" />,
       color: "bg-rose-500",
-      link: "https://maps.app.goo.gl/p9zjjPDreHn76w4W9?g_st=ic"
+      link: "https://maps.app.goo.gl/kxMC78WAdUyDzBY6A?g_st=ic"
     }
   ],
   "3/7": [
@@ -165,17 +166,17 @@ const itineraryData = {
 
 const TimelineItem = ({ item, isLast }) => {
   return (
-    <div 
-      className="relative flex flex-col mb-10 group cursor-pointer" 
+    <div
+      className="relative flex flex-col mb-10 group cursor-pointer"
       onClick={() => window.open(item.link, '_blank')}
     >
       {!isLast && (
-        <span 
-          className="absolute left-6 top-12 h-full w-0.5 bg-gray-200 dark:bg-gray-700" 
-          aria-hidden="true" 
+        <span
+          className="absolute left-6 top-12 h-full w-0.5 bg-gray-200 dark:bg-gray-700"
+          aria-hidden="true"
         />
       )}
-      
+
       <div className="flex items-start gap-5">
         <div className={`relative z-10 flex flex-shrink-0 items-center justify-center w-12 h-12 rounded-full text-white shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:rotate-6 ${item.color}`}>
           {item.icon}
@@ -193,20 +194,34 @@ const TimelineItem = ({ item, isLast }) => {
               <Navigation className="w-4 h-4" />
             </div>
           </div>
-          
+
           <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1 leading-tight">
             {item.title}
           </h3>
-          
+
           <div className="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-3 font-medium">
             <MapPin className="w-3.5 h-3.5 mr-1 text-red-500" />
             {item.location}
           </div>
-          
-          <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+
+          <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed mb-2">
             {item.description}
           </p>
-          
+
+          {item.secondaryLink && (
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                window.open(item.secondaryLink, '_blank');
+              }}
+              className="inline-flex items-center text-xs font-bold text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-900/20 px-3 py-1.5 rounded-lg hover:bg-purple-100 transition-colors"
+            >
+              <MapPin className="w-3 h-3 mr-1" />
+              查看佳佳甜品位置
+              <ExternalLink className="w-3 h-3 ml-1" />
+            </button>
+          )}
+
           <div className="mt-4 pt-3 border-t border-gray-50 dark:border-gray-700 flex justify-end items-center">
             <span className="text-xs text-blue-500 font-semibold group-hover:translate-x-1 transition-transform">
               點擊查看地圖 →
@@ -231,9 +246,9 @@ export default function App() {
               HK <span className="text-blue-600 text-sm italic">Trip 2026</span>
             </h1>
           </div>
-          
+
           <div className="flex items-center space-x-2">
-            <button 
+            <button
               onClick={() => setIsDarkMode(!isDarkMode)}
               className="w-10 h-10 flex items-center justify-center rounded-xl bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 transition-all"
             >
@@ -248,11 +263,10 @@ export default function App() {
             <button
               key={day}
               onClick={() => setActiveDay(day)}
-              className={`flex-1 py-3 text-sm font-bold rounded-xl transition-all ${
-                activeDay === day 
-                ? 'bg-blue-600 text-white shadow-lg shadow-blue-200 dark:shadow-none' 
-                : 'bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-gray-400'
-              }`}
+              className={`flex-1 py-3 text-sm font-bold rounded-xl transition-all ${activeDay === day
+                  ? 'bg-blue-600 text-white shadow-lg shadow-blue-200 dark:shadow-none'
+                  : 'bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-gray-400'
+                }`}
             >
               Day {day === "3/6" ? "1" : "2"} ({day})
             </button>
@@ -263,28 +277,28 @@ export default function App() {
       <main className="max-w-xl mx-auto px-6 pt-10 pb-24">
         <div className="mb-10">
           <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white tracking-tight mb-2">
-            {activeDay === "3/6" ? "首日抵港：美食快閃" : "次日探索：海島與夜景"}
+            {activeDay === "3/6" ? "首日抵港：美食與夜市" : "次日探索：海島與夜景"}
           </h2>
           <p className="text-gray-500 dark:text-gray-400">
-            {activeDay === "3/6" 
-              ? "從台北啟程，直奔九龍美食心臟地帶。" 
+            {activeDay === "3/6"
+              ? "從台北啟程，直奔九龍心臟地帶體驗道地港味與霓虹夜色。"
               : "穿越上環舊時光，搭船出海，迎接太平山頂之巔。"}
           </p>
         </div>
 
         <div className="relative">
           {itineraryData[activeDay].map((item, index) => (
-            <TimelineItem 
-              key={item.id} 
-              item={item} 
-              isLast={index === itineraryData[activeDay].length - 1} 
+            <TimelineItem
+              key={item.id}
+              item={item}
+              isLast={index === itineraryData[activeDay].length - 1}
             />
           ))}
         </div>
 
         <footer className="mt-16 text-center">
           <p className="text-xs text-gray-400 dark:text-gray-600 font-medium">
-            2026 Itinerary Engine v4.0 • Senior Frontend Developer
+            2026 Itinerary Engine v4.1 • Senior Frontend Developer
           </p>
         </footer>
       </main>
