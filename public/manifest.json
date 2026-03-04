@@ -1,0 +1,15 @@
+{
+            "name": "Hong Kong Trip",
+            "short_name": "HK Trip",
+            "start_url": "/",
+            "display": "standalone",
+            "background_color": "#000033",
+            "theme_color": "#000033",
+            "icons": [
+                        {
+                                    "src": "apple-touch-icon.png",
+                                    "sizes": "1024x1024",
+                                    "type": "image/png"
+                        }
+            ]
+}
