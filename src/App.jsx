@@ -168,7 +168,7 @@ const TimelineItem = ({ item, isLast }) => {
   return (
     <div
       className="relative flex flex-col mb-10 group cursor-pointer"
-      onClick={() => window.open(item.link, '_blank')}
+      onClick={() => window.location.href = item.link}
     >
       {!isLast && (
         <span
@@ -212,7 +212,7 @@ const TimelineItem = ({ item, isLast }) => {
             <button
               onClick={(e) => {
                 e.stopPropagation();
-                window.open(item.secondaryLink, '_blank');
+                window.location.href = item.secondaryLink;
               }}
               className="inline-flex items-center text-xs font-bold text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-900/20 px-3 py-1.5 rounded-lg hover:bg-purple-100 transition-colors"
             >
@@ -264,8 +264,8 @@ export default function App() {
               key={day}
               onClick={() => setActiveDay(day)}
               className={`flex-1 py-3 text-sm font-bold rounded-xl transition-all ${activeDay === day
-                  ? 'bg-blue-600 text-white shadow-lg shadow-blue-200 dark:shadow-none'
-                  : 'bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-gray-400'
+                ? 'bg-blue-600 text-white shadow-lg shadow-blue-200 dark:shadow-none'
+                : 'bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-gray-400'
                 }`}
             >
               Day {day === "3/6" ? "1" : "2"} ({day})
