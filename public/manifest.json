@@ -1,6 +1,6 @@
 {
             "name": "Hong Kong Trip",
-            "short_name": "HK Trip",
+            "short_name": "J 人行程表",
             "start_url": "/hk-trip/",
             "display": "standalone",
             "background_color": "#000033",
