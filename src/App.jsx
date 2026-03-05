@@ -5,7 +5,7 @@ import {
   IceCream, ExternalLink, HelpCircle, ChevronDown,
   CreditCard, ClipboardList, CloudSun, Shirt,
   Cloud, CloudRain, CloudDrizzle, CheckCircle2,
-  MessageCircle, Volume2
+  MessageCircle, Volume2, ShoppingBag, Milestone
 } from 'lucide-react';
 
 // 行程資料定義
@@ -261,6 +261,100 @@ const itineraryData = {
     }
   ]
 };
+
+// 備案行程資料
+const backupData = [
+  {
+    id: "b1",
+    category: "藝術文化",
+    title: "西九文化區 (WKCD)",
+    location: "M+ 博物館 / 香港故宮 / 藝術公園",
+    description: "全港最適合看夕陽的海濱草坪，更有世界級的 M+ 當代藝術館。若行程提早結束，來這裡散步非常愜意。",
+    icon: <Camera className="w-5 h-5" />,
+    color: "bg-indigo-600",
+    link: "https://www.google.com/maps/search/?api=1&query=West+Kowloon+Cultural+District"
+  },
+  {
+    id: "b2",
+    category: "血拚購物",
+    title: "銅鑼灣中心地帶",
+    location: "時代廣場 / 崇光百貨 / 希慎廣場",
+    description: "相較於尖沙咀，銅鑼灣的零售品牌更集中且多樣。必逛誠品書店與各類潮流選品店。",
+    icon: <ShoppingBag className="w-5 h-5" />,
+    color: "bg-pink-600",
+    link: "https://www.google.com/maps/search/?api=1&query=Causeway+Bay+Times+Square"
+  },
+  {
+    id: "b3",
+    category: "必吃甜點",
+    title: "Bakehouse",
+    location: "中環 / 尖沙咀 / 銅鑼灣",
+    description: "超人氣酸種蛋撻，酥皮層次極多且香濃，通常在下午前就會售罄，路過有開一定要買。",
+    icon: <Coffee className="w-5 h-5" />,
+    color: "bg-amber-600",
+    link: "https://www.google.com/maps/search/?api=1&query=Bakehouse+Hong+Kong"
+  },
+  {
+    id: "b4",
+    category: "宗教建築",
+    title: "黃大仙祠",
+    location: "九龍黃大仙",
+    description: "香港最富盛名的廟宇，以「有求必應」著稱。傳統的中式建築與求籤文化非常值得一訪。",
+    icon: <Milestone className="w-5 h-5" />,
+    color: "bg-red-600",
+    link: "https://www.google.com/maps/search/?api=1&query=Wong+Tai+Sin+Temple"
+  },
+  {
+    id: "b5",
+    category: "高空美景",
+    title: "昂坪 360 & 大佛",
+    location: "大嶼山昂坪",
+    description: "搭乘底部透明的水晶纜車，俯瞰大嶼山海景與機場。抵達後可參觀宏偉的天壇大佛。",
+    icon: <Mountain className="w-5 h-5" />,
+    color: "bg-emerald-600",
+    link: "https://www.google.com/maps/search/?api=1&query=Tian+Tan+Buddha"
+  },
+  {
+    id: "b6",
+    category: "精品藝術",
+    title: "K11 MUSEA",
+    location: "尖沙咀海濱",
+    description: "被譽為「維港邊的矽谷文化藝術設計館」，不僅好逛，建築設計本身就是一件藝術品。",
+    icon: <ShoppingBag className="w-5 h-5" />,
+    color: "bg-stone-800",
+    link: "https://maps.app.goo.gl/rmFEbKMeeH2AMX4A9?g_st=ic"
+  },
+  {
+    id: "b7",
+    category: "繽紛夜生活",
+    title: "蘭桂坊 (LKF)",
+    location: "中環德己立街",
+    description: "香港夜生活的靈魂，滿街的特色酒吧與餐酒館。若晚上還有體力，來這裡感受異國風情與狂歡氣氛非常合適。",
+    icon: <Moon className="w-5 h-5" />,
+    color: "bg-fuchsia-600",
+    link: "https://www.google.com/maps/search/?api=1&query=Lan+Kwai+Fong"
+  },
+  {
+    id: "b8",
+    category: "攝影地標",
+    title: "鰂魚涌怪獸大廈",
+    location: "鰂魚涌海山樓",
+    description: "《變形金剛》取景地，極度密集的建築呈現出震撼的視覺壓迫感，是體驗老香港居住密度的經典地標。",
+    icon: <Camera className="w-5 h-5" />,
+    color: "bg-slate-600",
+    link: "https://www.google.com/maps/search/?api=1&query=Yick+Cheong+Building"
+  },
+  {
+    id: "b9",
+    category: "經典體驗",
+    title: "天星小輪 (中環-尖沙咀)",
+    location: "維多利亞港碼頭",
+    description: "最便宜卻最奢華的海景交通工具。若不想走路，搭一趟小輪穿越維港，吹著海風欣賞兩岸天際線是絕佳享受。",
+    icon: <Ship className="w-5 h-5" />,
+    color: "bg-cyan-700",
+    link: "https://www.google.com/maps/search/?api=1&query=Star+Ferry+Pier"
+  }
+];
 
 const TimelineItem = ({ item, isLast, completed, onToggle }) => {
   return (
@@ -598,6 +692,38 @@ const FAQItem = ({ item }) => {
   );
 };
 
+const BackupItem = ({ item }) => (
+  <div
+    className="group bg-white dark:bg-gray-800 rounded-2xl shadow-md border border-gray-100 dark:border-gray-700 overflow-hidden cursor-pointer hover:border-blue-300 dark:hover:border-blue-800 transition-all"
+    onClick={() => window.location.href = item.link}
+  >
+    <div className="p-5">
+      <div className="flex justify-between items-start mb-4">
+        <div className={`p-2.5 rounded-xl text-white shadow-md ${item.color}`}>
+          {item.icon}
+        </div>
+        <span className="text-[10px] font-black uppercase tracking-widest text-gray-400 dark:text-gray-500 bg-gray-50 dark:bg-gray-900 px-2 py-1 rounded-md">
+          {item.category}
+        </span>
+      </div>
+      <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+        {item.title}
+      </h3>
+      <div className="flex items-center text-xs text-gray-500 dark:text-gray-400 mb-3 font-medium">
+        <MapPin className="w-3 h-3 mr-1 text-red-500" />
+        {item.location}
+      </div>
+      <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+        {item.description}
+      </p>
+      <div className="mt-4 pt-4 border-t border-gray-50 dark:border-gray-700 flex justify-between items-center text-[11px] font-bold">
+        <span className="text-blue-500 uppercase tracking-tight">查看地圖</span>
+        <ExternalLink className="w-3 h-3 text-gray-300 group-hover:text-blue-500 transition-colors" />
+      </div>
+    </div>
+  </div>
+);
+
 export default function App() {
   const [activeDay, setActiveDay] = useState("3/6");
   const [activeTab, setActiveTab] = useState("itinerary"); // "itinerary" | "faq"
@@ -644,28 +770,38 @@ export default function App() {
         </div>
 
         {/* 日期切換 Tab */}
-        <div className="max-w-xl mx-auto px-6 pb-2 flex gap-3">
+        <div className="max-w-xl mx-auto px-6 pb-2 flex gap-2 overflow-x-auto no-scrollbar">
           {Object.keys(itineraryData).map((day, index) => (
             <button
               key={day}
               onClick={() => { setActiveDay(day); setActiveTab("itinerary"); }}
-              className={`flex-1 py-3 text-sm font-bold rounded-xl transition-all ${activeTab === "itinerary" && activeDay === day
+              className={`flex-none px-4 py-3 text-sm font-bold rounded-xl transition-all ${activeTab === "itinerary" && activeDay === day
                 ? 'bg-blue-600 text-white shadow-lg shadow-blue-200 dark:shadow-none'
                 : 'bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-gray-400'
                 }`}
             >
-              Day {index + 1} ({day})
+              Day {index + 1}
             </button>
           ))}
           <button
             onClick={() => setActiveTab("faq")}
-            className={`flex-1 py-3 text-sm font-bold rounded-xl transition-all flex items-center justify-center gap-1.5 ${activeTab === "faq"
+            className={`flex-none px-4 py-3 text-sm font-bold rounded-xl transition-all flex items-center gap-1.5 ${activeTab === "faq"
               ? 'bg-blue-600 text-white shadow-lg shadow-blue-200 dark:shadow-none'
               : 'bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-gray-400'
               }`}
           >
             <HelpCircle className="w-4 h-4" />
             FAQ
+          </button>
+          <button
+            onClick={() => setActiveTab("backup")}
+            className={`flex-none px-4 py-3 text-sm font-bold rounded-xl transition-all flex items-center gap-1.5 ${activeTab === "backup"
+              ? 'bg-purple-600 text-white shadow-lg shadow-purple-200 dark:shadow-none'
+              : 'bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-gray-400'
+              }`}
+          >
+            <Milestone className="w-4 h-4" />
+            備案
           </button>
         </div>
       </header>
@@ -726,7 +862,7 @@ export default function App() {
               ))}
             </div>
           </>
-        ) : (
+        ) : activeTab === "faq" ? (
           <>
             <div className="mb-10">
               <div className="flex items-center gap-3 mb-2">
@@ -742,6 +878,25 @@ export default function App() {
             {faqData.map(item => (
               <FAQItem key={item.id} item={item} />
             ))}
+          </>
+        ) : (
+          <>
+            <div className="mb-10">
+              <div className="flex items-center gap-3 mb-2">
+                <Milestone className="w-7 h-7 text-purple-600 dark:text-purple-400" />
+                <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white tracking-tight">
+                  行程備案庫
+                </h2>
+              </div>
+              <p className="text-gray-500 dark:text-gray-400">
+                若行程提前結束或想臨時更換景點，這裡有香港最值得一探的遺珠選項。
+              </p>
+            </div>
+            <div className="grid grid-cols-1 gap-6">
+              {backupData.map(item => (
+                <BackupItem key={item.id} item={item} />
+              ))}
+            </div>
           </>
         )}
 
