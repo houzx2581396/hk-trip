@@ -3,7 +3,8 @@ import {
   MapPin, Clock, Plane, Home, Utensils, Camera, Moon,
   Navigation, Sun, Ticket, Coffee, Ship, Mountain,
   IceCream, ExternalLink, HelpCircle, ChevronDown,
-  CreditCard, ClipboardList, CloudSun, Shirt
+  CreditCard, ClipboardList, CloudSun, Shirt,
+  Cloud, CloudRain, CloudDrizzle
 } from 'lucide-react';
 
 // 行程資料定義
@@ -239,16 +240,14 @@ const faqData = [
     id: "faq-1",
     icon: <CloudSun className="w-5 h-5" />,
     question: "天氣預報（3/6 - 3/9）",
-    answer: `三月初的香港屬於春季過渡期，氣候溫和舒適。
-
-| 日期 | 最高溫 | 最低溫 | 天氣概況 |
-|------|--------|--------|----------|
-| 3/6（四）| 24°C | 17°C | 多雲偶晴 |
-| 3/7（五）| 23°C | 16°C | 多雲 |
-| 3/8（六）| 22°C | 17°C | 多雲偶陣雨 |
-| 3/9（日）| 23°C | 15°C | 多雲轉晴 |
-
-• 平均濕度約 80%，體感偏潮濕
+    customRender: true,
+    weather: [
+      { date: "03/06（四）", low: 17, high: 24, label: "多雲偶晴", icon: <CloudSun className="w-8 h-8 text-gray-500 dark:text-gray-300" /> },
+      { date: "03/07（五）", low: 16, high: 23, label: "多雲", icon: <Cloud className="w-8 h-8 text-gray-500 dark:text-gray-300" /> },
+      { date: "03/08（六）", low: 17, high: 22, label: "多雲偶陣雨", icon: <CloudDrizzle className="w-8 h-8 text-blue-500" /> },
+      { date: "03/09（日）", low: 15, high: 23, label: "多雲轉晴", icon: <CloudSun className="w-8 h-8 text-yellow-500" /> },
+    ],
+    tips: `• 平均濕度約 80%，體感偏潮濕
 • 三月平均有 10 天降雨，建議隨身攜帶雨具
 • 早晚溫差約 6-8°C，注意保暖`
   },
@@ -341,9 +340,27 @@ const FAQItem = ({ item }) => {
 
       {isOpen && (
         <div className="mt-1 mx-2 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-700">
-          <pre className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed whitespace-pre-wrap font-sans">
-            {item.answer}
-          </pre>
+          {item.customRender && item.weather ? (
+            <>
+              <div className="grid grid-cols-2 gap-3 mb-4">
+                {item.weather.map((w, i) => (
+                  <div key={i} className="bg-white dark:bg-gray-800 rounded-2xl p-4 border border-gray-100 dark:border-gray-700 text-center">
+                    <p className="text-xs text-gray-400 dark:text-gray-500 font-medium mb-2">{w.date}</p>
+                    <div className="flex justify-center mb-2">{w.icon}</div>
+                    <p className="text-lg font-bold text-gray-900 dark:text-white">{w.low}°C - {w.high}°C</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{w.label}</p>
+                  </div>
+                ))}
+              </div>
+              <pre className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed whitespace-pre-wrap font-sans">
+                {item.tips}
+              </pre>
+            </>
+          ) : (
+            <pre className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed whitespace-pre-wrap font-sans">
+              {item.answer}
+            </pre>
+          )}
         </div>
       )}
     </div>
