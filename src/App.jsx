@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   MapPin, Clock, Plane, Home, Utensils, Camera, Moon,
   Navigation, Sun, Ticket, Coffee, Ship, Mountain,
   IceCream, ExternalLink, HelpCircle, ChevronDown,
   CreditCard, ClipboardList, CloudSun, Shirt,
-  Cloud, CloudRain, CloudDrizzle
+  Cloud, CloudRain, CloudDrizzle, CheckCircle2,
+  MessageCircle, Volume2
 } from 'lucide-react';
 
 // 行程資料定義
@@ -166,25 +167,29 @@ const itineraryData = {
   ]
 };
 
-const TimelineItem = ({ item, isLast }) => {
+const TimelineItem = ({ item, isLast, completed, onToggle }) => {
   return (
     <div
-      className="relative flex flex-col mb-10 group cursor-pointer"
+      className={`relative flex flex-col mb-10 group cursor-pointer transition-opacity duration-300 ${completed ? 'opacity-60' : ''}`}
       onClick={() => window.location.href = item.link}
     >
       {!isLast && (
         <span
-          className="absolute left-6 top-12 h-full w-0.5 bg-gray-200 dark:bg-gray-700"
+          className={`absolute left-6 top-12 h-full w-0.5 ${completed ? 'bg-gray-300 dark:bg-gray-600' : 'bg-gray-200 dark:bg-gray-700'}`}
           aria-hidden="true"
         />
       )}
 
       <div className="flex items-start gap-5">
-        <div className={`relative z-10 flex flex-shrink-0 items-center justify-center w-12 h-12 rounded-full text-white shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:rotate-6 ${item.color}`}>
-          {item.icon}
-        </div>
+        <button
+          onClick={(e) => { e.stopPropagation(); onToggle(item.id); }}
+          className={`relative z-10 flex flex-shrink-0 items-center justify-center w-12 h-12 rounded-full text-white shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:rotate-6 ${completed ? 'bg-gray-400 dark:bg-gray-600' : item.color}`}
+          aria-label={completed ? '標記為未完成' : '標記為已完成'}
+        >
+          {completed ? <CheckCircle2 className="w-6 h-6" /> : item.icon}
+        </button>
 
-        <div className="flex-1 bg-white dark:bg-gray-800 p-5 rounded-2xl shadow-md border border-gray-100 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-800 transition-all">
+        <div className={`flex-1 p-5 rounded-2xl shadow-md border transition-all ${completed ? 'bg-gray-50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700' : 'bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-800'}`}>
           <div className="flex justify-between items-center mb-3">
             <div className="flex items-center space-x-2 bg-gray-100 dark:bg-gray-700 px-3 py-1 rounded-full">
               <Clock className="w-3.5 h-3.5 text-gray-500 dark:text-gray-400" />
@@ -192,21 +197,25 @@ const TimelineItem = ({ item, isLast }) => {
                 {item.time}
               </span>
             </div>
-            <div className="p-2 bg-blue-50 text-blue-600 rounded-full dark:bg-blue-900/30 dark:text-blue-400">
-              <Navigation className="w-4 h-4" />
-            </div>
+            <button
+              onClick={(e) => { e.stopPropagation(); onToggle(item.id); }}
+              className={`p-2 rounded-full transition-colors ${completed ? 'bg-green-100 text-green-600 dark:bg-green-900/30 dark:text-green-400' : 'bg-blue-50 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400 hover:bg-green-50 hover:text-green-500'}`}
+              aria-label={completed ? '標記為未完成' : '標記為已完成'}
+            >
+              {completed ? <CheckCircle2 className="w-4 h-4" /> : <Navigation className="w-4 h-4" />}
+            </button>
           </div>
 
-          <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1 leading-tight">
+          <h3 className={`text-lg font-bold mb-1 leading-tight ${completed ? 'text-gray-400 dark:text-gray-500 line-through' : 'text-gray-900 dark:text-white'}`}>
             {item.title}
           </h3>
 
-          <div className="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-3 font-medium">
-            <MapPin className="w-3.5 h-3.5 mr-1 text-red-500" />
+          <div className={`flex items-center text-sm mb-3 font-medium ${completed ? 'text-gray-400 dark:text-gray-500 line-through' : 'text-gray-500 dark:text-gray-400'}`}>
+            <MapPin className={`w-3.5 h-3.5 mr-1 ${completed ? 'text-gray-400' : 'text-red-500'}`} />
             {item.location}
           </div>
 
-          <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed mb-2">
+          <p className={`text-sm leading-relaxed mb-2 ${completed ? 'text-gray-400 dark:text-gray-500 line-through' : 'text-gray-600 dark:text-gray-300'}`}>
             {item.description}
           </p>
 
@@ -225,7 +234,7 @@ const TimelineItem = ({ item, isLast }) => {
           )}
 
           <div className="mt-4 pt-3 border-t border-gray-50 dark:border-gray-700 flex justify-end items-center">
-            <span className="text-xs text-blue-500 font-semibold group-hover:translate-x-1 transition-transform">
+            <span className={`text-xs font-semibold group-hover:translate-x-1 transition-transform ${completed ? 'text-gray-400' : 'text-blue-500'}`}>
               點擊查看地圖 →
             </span>
           </div>
@@ -317,8 +326,123 @@ const faqData = [
 □ 舒適好走的鞋子（行程走路多）
 □ 輕便雨具 / 摺疊傘
 □ 個人藥品 & 防曬乳`
+  },
+  {
+    id: "faq-5",
+    icon: <MessageCircle className="w-5 h-5" />,
+    question: "廣東話點餐萬用句",
+    customRender: true,
+    cantonese: true,
+    phrases: [
+      { category: "入座", items: [
+        { text: "搭檯", roman: "daap toi", meaning: "併桌／拼桌", tip: "茶餐廳人多時，店員會問「搭檯得唔得？」（可以併桌嗎？），回答「得」即可" },
+        { text: "幾多位？", roman: "gei do wai", meaning: "幾位？", tip: "店員會在門口問你，直接比手指或說數字即可" },
+      ]},
+      { category: "點餐", items: [
+        { text: "唔該，我想要", roman: "m goi, ngo soeng jiu", meaning: "請問，我想要⋯⋯", tip: "萬用開場白，後面接餐點名稱" },
+        { text: "例牌", roman: "lai paai", meaning: "正常份量", tip: "「例牌乾炒牛河」= 一份正常份量的乾炒牛河" },
+        { text: "走冰", roman: "zau bing", meaning: "去冰", tip: "「凍檸茶走冰」= 冰檸檬茶去冰" },
+        { text: "少甜", roman: "siu tim", meaning: "少糖", tip: "「少甜唔該」= 少糖，謝謝" },
+        { text: "加底", roman: "gaa dai", meaning: "加飯 / 加麵", tip: "飯量不夠時使用" },
+      ]},
+      { category: "飲茶專用（如六安居）", items: [
+        { text: "點心紙", roman: "dim sam zi", meaning: "點心單", tip: "用筆在點心紙上剔選想吃的品項" },
+        { text: "加水", roman: "gaa seoi", meaning: "加熱水（續茶）", tip: "把茶壺蓋打開放著，服務員就會來加水" },
+        { text: "蝦餃", roman: "haa gaau", meaning: "蝦餃" },
+        { text: "燒賣", roman: "siu maai", meaning: "燒賣" },
+        { text: "叉燒包", roman: "caa siu baau", meaning: "叉燒包" },
+        { text: "腸粉", roman: "coeng fan", meaning: "腸粉" },
+      ]},
+      { category: "結帳", items: [
+        { text: "唔該，埋單", roman: "m goi, maai daan", meaning: "結帳 / 買單", tip: "最常用！舉手喊「唔該，埋單！」即可" },
+        { text: "唔該", roman: "m goi", meaning: "謝謝 / 請問 / 不好意思", tip: "萬用禮貌詞，叫人、道謝都可以用" },
+        { text: "多謝", roman: "do ze", meaning: "謝謝（收到東西時用）", tip: "收到餐點或找零時說" },
+      ]},
+      { category: "冰室/茶餐廳專用（如華星冰室）", items: [
+        { text: "凍檸茶", roman: "dung ning caa", meaning: "冰檸檬茶" },
+        { text: "絲襪奶茶", roman: "si mat naai caa", meaning: "絲襪奶茶" },
+        { text: "菠蘿油", roman: "bo lo jau", meaning: "菠蘿包夾牛油" },
+        { text: "炒蛋多士", roman: "caau daan do si", meaning: "炒蛋吐司" },
+        { text: "走甜", roman: "zau tim", meaning: "完全不加糖" },
+      ]},
+    ],
+    tips: `• 「唔該」是最實用的一個詞，幾乎所有場合都能用
+• 不確定時，指著菜單說「呢個」(ni go，這個) 也完全 OK
+• 大部分餐廳服務員都能聽懂普通話，別太緊張！`
   }
 ];
+
+const SpeakButton = ({ text }) => {
+  const [speaking, setSpeaking] = useState(false);
+
+  const speak = (e) => {
+    e.stopPropagation();
+    if (speaking) {
+      window.speechSynthesis.cancel();
+      setSpeaking(false);
+      return;
+    }
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'zh-HK';
+    utterance.rate = 0.8;
+    utterance.onend = () => setSpeaking(false);
+    utterance.onerror = () => setSpeaking(false);
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(utterance);
+    setSpeaking(true);
+  };
+
+  return (
+    <button
+      onClick={speak}
+      className={`flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full transition-colors ${speaking ? 'bg-blue-600 text-white' : 'bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400 hover:bg-blue-200 dark:hover:bg-blue-800/50'}`}
+      aria-label={`播放「${text}」的廣東話發音`}
+    >
+      <Volume2 className="w-4 h-4" />
+    </button>
+  );
+};
+
+const CantonesePhrasesRenderer = ({ phrases, tips }) => (
+  <div className="space-y-4">
+    {phrases.map((group, gi) => (
+      <div key={gi}>
+        <h4 className="text-xs font-bold text-blue-600 dark:text-blue-400 mb-2 uppercase tracking-wider">
+          {group.category}
+        </h4>
+        <div className="space-y-2">
+          {group.items.map((phrase, pi) => (
+            <div key={pi} className="bg-white dark:bg-gray-800 rounded-xl p-3 border border-gray-100 dark:border-gray-700">
+              <div className="flex items-center gap-3">
+                <SpeakButton text={phrase.text} />
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-baseline gap-2 flex-wrap">
+                    <span className="text-base font-bold text-gray-900 dark:text-white">{phrase.text}</span>
+                    <span className="text-xs text-blue-500 dark:text-blue-400 font-mono">{phrase.roman}</span>
+                  </div>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">{phrase.meaning}</p>
+                </div>
+              </div>
+              {phrase.tip && (
+                <p className="text-xs text-gray-400 dark:text-gray-500 mt-2 ml-11">
+                  {phrase.tip}
+                </p>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    ))}
+    {tips && (
+      <div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700">
+        <h4 className="text-xs font-bold text-blue-600 dark:text-blue-400 mb-2 uppercase tracking-wider">Tips</h4>
+        <pre className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed whitespace-pre-wrap font-sans">
+          {tips}
+        </pre>
+      </div>
+    )}
+  </div>
+);
 
 const FAQItem = ({ item }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -340,7 +464,9 @@ const FAQItem = ({ item }) => {
 
       {isOpen && (
         <div className="mt-1 mx-2 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-700">
-          {item.customRender && item.weather ? (
+          {item.customRender && item.cantonese && item.phrases ? (
+            <CantonesePhrasesRenderer phrases={item.phrases} tips={item.tips} />
+          ) : item.customRender && item.weather ? (
             <>
               <div className="grid grid-cols-2 gap-3 mb-4">
                 {item.weather.map((w, i) => (
@@ -371,6 +497,26 @@ export default function App() {
   const [activeDay, setActiveDay] = useState("3/6");
   const [activeTab, setActiveTab] = useState("itinerary"); // "itinerary" | "faq"
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [completedItems, setCompletedItems] = useState(() => {
+    try {
+      const saved = localStorage.getItem('hk-trip-completed');
+      return saved ? JSON.parse(saved) : {};
+    } catch { return {}; }
+  });
+
+  useEffect(() => {
+    localStorage.setItem('hk-trip-completed', JSON.stringify(completedItems));
+  }, [completedItems]);
+
+  const toggleComplete = (id) => {
+    setCompletedItems(prev => ({ ...prev, [id]: !prev[id] }));
+  };
+
+  const getProgress = (day) => {
+    const items = itineraryData[day];
+    const done = items.filter(item => completedItems[item.id]).length;
+    return { done, total: items.length, percent: Math.round((done / items.length) * 100) };
+  };
 
   return (
     <div className={`min-h-screen transition-colors duration-300 ${isDarkMode ? 'dark bg-gray-950' : 'bg-gray-50'}`}>
@@ -431,6 +577,34 @@ export default function App() {
                   ? "從台北啟程，直奔九龍心臟地帶體驗道地港味與霓虹夜色。"
                   : "穿越上環舊時光，搭船出海，迎接太平山頂之巔。"}
               </p>
+
+              {/* 行程進度追蹤 */}
+              {(() => {
+                const { done, total, percent } = getProgress(activeDay);
+                return (
+                  <div className="mt-5 p-4 bg-white dark:bg-gray-800 rounded-2xl shadow-md border border-gray-100 dark:border-gray-700">
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="text-sm font-bold text-gray-700 dark:text-gray-200">
+                        行程進度
+                      </span>
+                      <span className={`text-sm font-bold ${percent === 100 ? 'text-green-500' : 'text-blue-600 dark:text-blue-400'}`}>
+                        {done}/{total} 已完成 ({percent}%)
+                      </span>
+                    </div>
+                    <div className="w-full h-2.5 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                      <div
+                        className={`h-full rounded-full transition-all duration-500 ease-out ${percent === 100 ? 'bg-green-500' : 'bg-blue-600'}`}
+                        style={{ width: `${percent}%` }}
+                      />
+                    </div>
+                    {percent === 100 && (
+                      <p className="text-xs text-green-500 font-bold mt-2 text-center">
+                        All Clear! 今日行程全部完成!
+                      </p>
+                    )}
+                  </div>
+                );
+              })()}
             </div>
 
             <div className="relative">
@@ -439,6 +613,8 @@ export default function App() {
                   key={item.id}
                   item={item}
                   isLast={index === itineraryData[activeDay].length - 1}
+                  completed={!!completedItems[item.id]}
+                  onToggle={toggleComplete}
                 />
               ))}
             </div>
