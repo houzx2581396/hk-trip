@@ -60,7 +60,8 @@ const itineraryData = {
       icon: <Camera className="w-6 h-6" />,
       color: "bg-purple-500",
       link: "https://maps.app.goo.gl/7d3p22cf31H1Ksia9?g_st=ic",
-      secondaryLink: "https://maps.app.goo.gl/PzZgcBK4FgiUQwNX8?g_st=ic"
+      secondaryLink: "https://maps.app.goo.gl/PzZgcBK4FgiUQwNX8?g_st=ic",
+      secondaryTitle: "查看佳佳甜品位置"
     },
     {
       id: "1-6",
@@ -164,6 +165,100 @@ const itineraryData = {
       color: "bg-purple-700",
       link: "https://www.google.com/maps/search/?api=1&query=Victoria+Harbour"
     }
+  ],
+  "3/8": [
+    {
+      id: "3-1",
+      time: "09:00",
+      title: "早餐 - 金華冰室",
+      location: "金華冰室 Kam Wah Cafe",
+      description: "必吃金牌菠蘿油，外皮酥脆內裡鬆軟，搭配厚切牛油是完美組合。",
+      icon: <Utensils className="w-6 h-6" />,
+      color: "bg-emerald-600",
+      link: "https://maps.app.goo.gl/ovtjUScNvUG8Uvdy7?g_st=ic"
+    },
+    {
+      id: "3-2",
+      time: "上午時段",
+      title: "旺角街頭散策與小食",
+      location: "金魚街 - 通菜街 - 女人街",
+      description: "走訪旺角獨特的街道地標，品嚐肥姐小食與椰汁大王。",
+      icon: <Camera className="w-6 h-6" />,
+      color: "bg-purple-500",
+      link: "https://maps.app.goo.gl/FZgApAdhSieZitho6?g_st=ic",
+      secondaryLink: "https://maps.app.goo.gl/sy2JFbKXXPkjSmpt5?g_st=ic",
+      secondaryTitle: "查看椰汁大王位置"
+    },
+    {
+      id: "3-3",
+      time: "11:00",
+      title: "伴手禮 - 嘉多娜麵包",
+      location: "嘉多娜麵包店 Kadorar Bakery",
+      description: "人氣爆棚的法式布丁包，外層脆口、內餡濃郁。",
+      icon: <Coffee className="w-6 h-6" />,
+      color: "bg-amber-500",
+      link: "https://maps.app.goo.gl/cJHL9PNppxqbbXJj8?g_st=ic"
+    },
+    {
+      id: "3-4",
+      time: "12:30",
+      title: "午餐 - 榕哥陳皮燒鵝",
+      location: "榕哥陳皮燒鵝 (砵蘭街店)",
+      description: "獨特的陳皮香氣燒鵝，皮脆肉美，是油麻地一帶的高人氣名物。",
+      icon: <Utensils className="w-6 h-6" />,
+      color: "bg-orange-600",
+      link: "https://maps.app.goo.gl/AWDK3GcBwKf9udDv7?g_st=ic"
+    },
+    {
+      id: "3-5",
+      time: "14:00",
+      title: "點心 - 澳洲牛奶公司",
+      location: "澳洲牛奶公司 Australia Dairy Co.",
+      description: "經典的蛋白燉鮮奶與炒蛋，感受全港最速服務與地道港味。",
+      icon: <IceCream className="w-6 h-6" />,
+      color: "bg-yellow-600",
+      link: "https://maps.app.goo.gl/xr6mLAtQPsckJ3DH8?g_st=ic"
+    },
+    {
+      id: "3-6",
+      time: "下午時段",
+      title: "超人氣蛋撻 - Hashtag B",
+      location: "Hashtag B (尖沙咀)",
+      description: "近期最夯的花形蛋撻，千層酥皮酥脆無比，層次感豐富。",
+      icon: <Coffee className="w-6 h-6" />,
+      color: "bg-teal-600",
+      link: "https://maps.app.goo.gl/LKL91EtLZGbiZBzD6?g_st=ic"
+    },
+    {
+      id: "3-7",
+      time: "15:00",
+      title: "維港漫步 - 星光大道",
+      location: "尖沙咀星光大道 Avenue of Stars",
+      description: "在返程前漫步於維多利亞港海旁，與電影巨星的手印合影。",
+      icon: <Camera className="w-6 h-6" />,
+      color: "bg-blue-400",
+      link: "https://maps.app.goo.gl/CkbCPeZa6pvBELGW8?g_st=ic"
+    },
+    {
+      id: "3-8",
+      time: "16:00",
+      title: "移動至機場",
+      location: "香港國際機場",
+      description: "搭乘機場快線或巴士前往機場，準備辦理登機。建議提前三小時抵達。",
+      icon: <Plane className="w-6 h-6" />,
+      color: "bg-indigo-500",
+      link: "https://www.google.com/maps/search/?api=1&query=Hong+Kong+International+Airport"
+    },
+    {
+      id: "3-9",
+      time: "18:50",
+      title: "起飛返回台北",
+      location: "香港國際機場 (HKG)",
+      description: "結束充實的香港美食之旅，帶著滿滿回憶與伴手禮平安返國。",
+      icon: <Ticket className="w-6 h-6" />,
+      color: "bg-sky-500",
+      link: "https://www.google.com/maps/search/?api=1&query=Hong+Kong+International+Airport"
+    }
   ]
 };
 
@@ -228,7 +323,7 @@ const TimelineItem = ({ item, isLast, completed, onToggle }) => {
               className="inline-flex items-center text-xs font-bold text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-900/20 px-3 py-1.5 rounded-lg hover:bg-purple-100 transition-colors"
             >
               <MapPin className="w-3 h-3 mr-1" />
-              查看佳佳甜品位置
+              {item.secondaryTitle || "查看相關位置"}
               <ExternalLink className="w-3 h-3 ml-1" />
             </button>
           )}
@@ -251,10 +346,10 @@ const faqData = [
     question: "天氣預報（3/6 - 3/9）",
     customRender: true,
     weather: [
-      { date: "03/06（四）", low: 17, high: 24, label: "多雲偶晴", icon: <CloudSun className="w-8 h-8 text-gray-500 dark:text-gray-300" /> },
-      { date: "03/07（五）", low: 16, high: 23, label: "多雲", icon: <Cloud className="w-8 h-8 text-gray-500 dark:text-gray-300" /> },
-      { date: "03/08（六）", low: 17, high: 22, label: "多雲偶陣雨", icon: <CloudDrizzle className="w-8 h-8 text-blue-500" /> },
-      { date: "03/09（日）", low: 15, high: 23, label: "多雲轉晴", icon: <CloudSun className="w-8 h-8 text-yellow-500" /> },
+      { date: "03/06（五）", low: 17, high: 24, label: "多雲偶晴", icon: <CloudSun className="w-8 h-8 text-gray-500 dark:text-gray-300" /> },
+      { date: "03/07（六）", low: 16, high: 23, label: "多雲", icon: <Cloud className="w-8 h-8 text-gray-500 dark:text-gray-300" /> },
+      { date: "03/08（日）", low: 17, high: 22, label: "多雲偶陣雨", icon: <CloudDrizzle className="w-8 h-8 text-blue-500" /> },
+      { date: "03/09（一）", low: 15, high: 23, label: "多雲轉晴", icon: <CloudSun className="w-8 h-8 text-yellow-500" /> },
     ],
     tips: `• 平均濕度約 80%，體感偏潮濕
 • 三月平均有 10 天降雨，建議隨身攜帶雨具
@@ -334,37 +429,47 @@ const faqData = [
     customRender: true,
     cantonese: true,
     phrases: [
-      { category: "入座", items: [
-        { text: "搭檯", roman: "daap toi", meaning: "併桌／拼桌", tip: "茶餐廳人多時，店員會問「搭檯得唔得？」（可以併桌嗎？），回答「得」即可" },
-        { text: "幾多位？", roman: "gei do wai", meaning: "幾位？", tip: "店員會在門口問你，直接比手指或說數字即可" },
-      ]},
-      { category: "點餐", items: [
-        { text: "唔該，我想要", roman: "m goi, ngo soeng jiu", meaning: "請問，我想要⋯⋯", tip: "萬用開場白，後面接餐點名稱" },
-        { text: "例牌", roman: "lai paai", meaning: "正常份量", tip: "「例牌乾炒牛河」= 一份正常份量的乾炒牛河" },
-        { text: "走冰", roman: "zau bing", meaning: "去冰", tip: "「凍檸茶走冰」= 冰檸檬茶去冰" },
-        { text: "少甜", roman: "siu tim", meaning: "少糖", tip: "「少甜唔該」= 少糖，謝謝" },
-        { text: "加底", roman: "gaa dai", meaning: "加飯 / 加麵", tip: "飯量不夠時使用" },
-      ]},
-      { category: "飲茶專用（如六安居）", items: [
-        { text: "點心紙", roman: "dim sam zi", meaning: "點心單", tip: "用筆在點心紙上剔選想吃的品項" },
-        { text: "加水", roman: "gaa seoi", meaning: "加熱水（續茶）", tip: "把茶壺蓋打開放著，服務員就會來加水" },
-        { text: "蝦餃", roman: "haa gaau", meaning: "蝦餃" },
-        { text: "燒賣", roman: "siu maai", meaning: "燒賣" },
-        { text: "叉燒包", roman: "caa siu baau", meaning: "叉燒包" },
-        { text: "腸粉", roman: "coeng fan", meaning: "腸粉" },
-      ]},
-      { category: "結帳", items: [
-        { text: "唔該，埋單", roman: "m goi, maai daan", meaning: "結帳 / 買單", tip: "最常用！舉手喊「唔該，埋單！」即可" },
-        { text: "唔該", roman: "m goi", meaning: "謝謝 / 請問 / 不好意思", tip: "萬用禮貌詞，叫人、道謝都可以用" },
-        { text: "多謝", roman: "do ze", meaning: "謝謝（收到東西時用）", tip: "收到餐點或找零時說" },
-      ]},
-      { category: "冰室/茶餐廳專用（如華星冰室）", items: [
-        { text: "凍檸茶", roman: "dung ning caa", meaning: "冰檸檬茶" },
-        { text: "絲襪奶茶", roman: "si mat naai caa", meaning: "絲襪奶茶" },
-        { text: "菠蘿油", roman: "bo lo jau", meaning: "菠蘿包夾牛油" },
-        { text: "炒蛋多士", roman: "caau daan do si", meaning: "炒蛋吐司" },
-        { text: "走甜", roman: "zau tim", meaning: "完全不加糖" },
-      ]},
+      {
+        category: "入座", items: [
+          { text: "搭檯", roman: "daap toi", meaning: "併桌／拼桌", tip: "茶餐廳人多時，店員會問「搭檯得唔得？」（可以併桌嗎？），回答「得」即可" },
+          { text: "幾多位？", roman: "gei do wai", meaning: "幾位？", tip: "店員會在門口問你，直接比手指或說數字即可" },
+        ]
+      },
+      {
+        category: "點餐", items: [
+          { text: "唔該，我想要", roman: "m goi, ngo soeng jiu", meaning: "請問，我想要⋯⋯", tip: "萬用開場白，後面接餐點名稱" },
+          { text: "例牌", roman: "lai paai", meaning: "正常份量", tip: "「例牌乾炒牛河」= 一份正常份量的乾炒牛河" },
+          { text: "走冰", roman: "zau bing", meaning: "去冰", tip: "「凍檸茶走冰」= 冰檸檬茶去冰" },
+          { text: "少甜", roman: "siu tim", meaning: "少糖", tip: "「少甜唔該」= 少糖，謝謝" },
+          { text: "加底", roman: "gaa dai", meaning: "加飯 / 加麵", tip: "飯量不夠時使用" },
+        ]
+      },
+      {
+        category: "飲茶專用（如六安居）", items: [
+          { text: "點心紙", roman: "dim sam zi", meaning: "點心單", tip: "用筆在點心紙上剔選想吃的品項" },
+          { text: "加水", roman: "gaa seoi", meaning: "加熱水（續茶）", tip: "把茶壺蓋打開放著，服務員就會來加水" },
+          { text: "蝦餃", roman: "haa gaau", meaning: "蝦餃" },
+          { text: "燒賣", roman: "siu maai", meaning: "燒賣" },
+          { text: "叉燒包", roman: "caa siu baau", meaning: "叉燒包" },
+          { text: "腸粉", roman: "coeng fan", meaning: "腸粉" },
+        ]
+      },
+      {
+        category: "結帳", items: [
+          { text: "唔該，埋單", roman: "m goi, maai daan", meaning: "結帳 / 買單", tip: "最常用！舉手喊「唔該，埋單！」即可" },
+          { text: "唔該", roman: "m goi", meaning: "謝謝 / 請問 / 不好意思", tip: "萬用禮貌詞，叫人、道謝都可以用" },
+          { text: "多謝", roman: "do ze", meaning: "謝謝（收到東西時用）", tip: "收到餐點或找零時說" },
+        ]
+      },
+      {
+        category: "冰室/茶餐廳專用（如華星冰室）", items: [
+          { text: "凍檸茶", roman: "dung ning caa", meaning: "冰檸檬茶" },
+          { text: "絲襪奶茶", roman: "si mat naai caa", meaning: "絲襪奶茶" },
+          { text: "菠蘿油", roman: "bo lo jau", meaning: "菠蘿包夾牛油" },
+          { text: "炒蛋多士", roman: "caau daan do si", meaning: "炒蛋吐司" },
+          { text: "走甜", roman: "zau tim", meaning: "完全不加糖" },
+        ]
+      },
     ],
     tips: `• 「唔該」是最實用的一個詞，幾乎所有場合都能用
 • 不確定時，指著菜單說「呢個」(ni go，這個) 也完全 OK
@@ -540,7 +645,7 @@ export default function App() {
 
         {/* 日期切換 Tab */}
         <div className="max-w-xl mx-auto px-6 pb-2 flex gap-3">
-          {Object.keys(itineraryData).map(day => (
+          {Object.keys(itineraryData).map((day, index) => (
             <button
               key={day}
               onClick={() => { setActiveDay(day); setActiveTab("itinerary"); }}
@@ -549,7 +654,7 @@ export default function App() {
                 : 'bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-gray-400'
                 }`}
             >
-              Day {day === "3/6" ? "1" : "2"} ({day})
+              Day {index + 1} ({day})
             </button>
           ))}
           <button
@@ -570,12 +675,14 @@ export default function App() {
           <>
             <div className="mb-10">
               <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white tracking-tight mb-2">
-                {activeDay === "3/6" ? "首日抵港：美食與夜市" : "次日探索：海島與夜景"}
+                {activeDay === "3/6" ? "首日抵港：美食與夜市" :
+                  activeDay === "3/7" ? "次日探索：海島與夜景" :
+                    "末日巡禮：旺角小食與歸途"}
               </h2>
               <p className="text-gray-500 dark:text-gray-400">
-                {activeDay === "3/6"
-                  ? "從台北啟程，直奔九龍心臟地帶體驗道地港味與霓虹夜色。"
-                  : "穿越上環舊時光，搭船出海，迎接太平山頂之巔。"}
+                {activeDay === "3/6" ? "從台北啟程，直奔九龍心臟地帶體驗道地港味與霓虹夜色。" :
+                  activeDay === "3/7" ? "穿越上環舊時光，搭船出海，迎接太平山頂之巔。" :
+                    "最後衝刺旺角伴手禮與小食，帶著滿分驚喜前往機場。"}
               </p>
 
               {/* 行程進度追蹤 */}
