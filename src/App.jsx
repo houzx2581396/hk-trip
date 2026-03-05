@@ -4,7 +4,8 @@ import {
   Navigation, Sun, Ticket, Coffee, Ship, Mountain,
   IceCream, ExternalLink, HelpCircle, ChevronDown,
   CreditCard, ClipboardList, CloudSun, Shirt,
-  Cloud, CloudRain, CloudDrizzle, CheckCircle2
+  Cloud, CloudRain, CloudDrizzle, CheckCircle2,
+  MessageCircle
 } from 'lucide-react';
 
 // 行程資料定義
@@ -325,6 +326,58 @@ const faqData = [
 □ 舒適好走的鞋子（行程走路多）
 □ 輕便雨具 / 摺疊傘
 □ 個人藥品 & 防曬乳`
+  },
+  {
+    id: "faq-5",
+    icon: <MessageCircle className="w-5 h-5" />,
+    question: "廣東話點餐萬用句",
+    answer: `【入座】
+• 搭檯 (daap toi) — 併桌／拼桌
+  → 用法：茶餐廳人多時，店員會問「搭檯得唔得？」（可以併桌嗎？），回答「得」即可
+• 幾多位？(gei do wai) — 幾位？
+  → 店員會在門口問你，直接比手指或說數字即可
+
+【點餐】
+• 唔該，我想要⋯⋯ (m goi, ngo soeng jiu) — 請問，我想要⋯⋯
+  → 萬用開場白，後面接餐點名稱
+• 例牌 (lai paai) — 正常份量
+  → 「例牌乾炒牛河」= 一份正常份量的乾炒牛河
+• 走冰 (zau bing) — 去冰
+  → 「凍檸茶走冰」= 冰檸檬茶去冰
+• 少甜 (siu tim) — 少糖
+  → 「少甜唔該」= 少糖，謝謝
+• 加底 (gaa dai) — 加飯 / 加麵
+  → 飯量不夠時使用
+
+【飲茶專用（如六安居）】
+• 點心紙 (dim sam zi) — 點心單
+  → 用筆在點心紙上剔選想吃的品項
+• 加水 (gaa seoi) — 加熱水（續茶）
+  → 把茶壺蓋打開放著，服務員就會來加水
+• 蝦餃 (haa gaau) — 蝦餃
+• 燒賣 (siu maai) — 燒賣
+• 叉燒包 (caa siu baau) — 叉燒包
+• 腸粉 (coeng fan) — 腸粉
+
+【結帳】
+• 埋單 (maai daan) — 結帳 / 買單
+  → 最常用！舉手喊「唔該，埋單！」即可
+• 唔該 (m goi) — 謝謝 / 請問 / 不好意思
+  → 萬用禮貌詞，叫人、道謝都可以用
+• 多謝 (do ze) — 謝謝（收到東西時用）
+  → 收到餐點或找零時說
+
+【冰室/茶餐廳專用（如華星冰室）】
+• 凍檸茶 (dung ning caa) — 冰檸檬茶
+• 絲襪奶茶 (si mat naai caa) — 絲襪奶茶
+• 菠蘿油 (bo lo jau) — 菠蘿包夾牛油
+• 炒蛋多士 (caau daan do si) — 炒蛋吐司
+• 走甜 (zau tim) — 完全不加糖
+
+【Tips】
+• 「唔該」是最實用的一個詞，幾乎所有場合都能用
+• 不確定時，指著菜單說「呢個」(ni go，這個) 也完全 OK
+• 大部分餐廳服務員都能聽懂普通話，別太緊張！`
   }
 ];
 
