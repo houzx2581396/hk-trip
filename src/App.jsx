@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import {
   MapPin, Clock, Plane, Home, Utensils, Camera, Moon,
   Navigation, Sun, Ticket, Coffee, Ship, Mountain,
-  IceCream, ExternalLink
+  IceCream, ExternalLink, HelpCircle, ChevronDown,
+  CreditCard, ClipboardList, CloudSun, Shirt
 } from 'lucide-react';
 
 // 行程資料定義
@@ -233,6 +234,122 @@ const TimelineItem = ({ item, isLast }) => {
   );
 };
 
+const faqData = [
+  {
+    id: "faq-1",
+    icon: <CloudSun className="w-5 h-5" />,
+    question: "天氣預報（3/6 - 3/9）",
+    answer: `三月初的香港屬於春季過渡期，氣候溫和舒適。
+
+| 日期 | 最高溫 | 最低溫 | 天氣概況 |
+|------|--------|--------|----------|
+| 3/6（四）| 24°C | 17°C | 多雲偶晴 |
+| 3/7（五）| 23°C | 16°C | 多雲 |
+| 3/8（六）| 22°C | 17°C | 多雲偶陣雨 |
+| 3/9（日）| 23°C | 15°C | 多雲轉晴 |
+
+• 平均濕度約 80%，體感偏潮濕
+• 三月平均有 10 天降雨，建議隨身攜帶雨具
+• 早晚溫差約 6-8°C，注意保暖`
+  },
+  {
+    id: "faq-2",
+    icon: <Shirt className="w-5 h-5" />,
+    question: "建議穿著",
+    answer: `【日間（22-24°C）】
+• 短袖或薄長袖上衣
+• 薄長褲或牛仔褲
+• 舒適的運動鞋或走路鞋（長洲島、太平山需步行較多）
+
+【傍晚 / 山上（15-17°C）】
+• 薄外套或連帽衫（太平山頂風大偏涼）
+• 長袖上衣搭配方便穿脫
+
+【防雨準備】
+• 輕便防風防水外套
+• 摺疊傘（隨身攜帶）
+
+【Tips】
+• 採「洋蔥式穿搭」，方便隨時增減
+• 室內冷氣偏強，薄外套可隨身帶
+• 長洲島碼頭風大，建議帶防風外套`
+  },
+  {
+    id: "faq-3",
+    icon: <CreditCard className="w-5 h-5" />,
+    question: "如何添加八達通？",
+    answer: `【iPhone / Apple Watch】
+1. 開啟「錢包」App → 點擊右上角「+」
+2. 選擇「交通卡」→「八達通」
+3. 選擇儲值金額（最低 HK$100），完成加卡
+4. 將 iPhone 或 Apple Watch 靠近讀卡器即可使用
+
+【Android / Google Pay】
+1. 開啟 Google Pay → 點擊「交通」
+2. 搜尋「八達通」並新增
+3. 選擇儲值金額，完成設定
+
+【實體卡】
+• 抵達香港機場後，於客務中心或便利商店購買「遊客八達通」（售價 HK$39，不可退還）
+• 可用於地鐵、巴士、渡輪、便利商店、餐廳等
+• 建議儲值 HK$300–500 足夠四天使用`
+  },
+  {
+    id: "faq-4",
+    icon: <ClipboardList className="w-5 h-5" />,
+    question: "行前準備清單",
+    answer: `【證件與文件】
+□ 護照（效期需超過 6 個月）
+□ 來回機票確認信
+□ 飯店訂房確認信
+□ 旅遊平安險保單
+
+【電子設備】
+□ 手機充電器 & 行動電源
+□ 轉接頭（香港使用英規三腳插頭）
+□ eSIM 或 WiFi 分享器（建議提前購買香港上網卡）
+
+【金錢】
+□ 港幣現金（建議先換 HK$2,000–3,000）
+□ 信用卡（Visa/Mastercard 通用）
+□ 八達通卡（可到港後購買或手機加卡）
+
+【個人物品】
+□ 舒適好走的鞋子（行程走路多）
+□ 輕便雨具 / 摺疊傘
+□ 個人藥品 & 防曬乳`
+  }
+];
+
+const FAQItem = ({ item }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <div className="mb-3">
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="w-full flex items-center gap-3 p-4 bg-white dark:bg-gray-800 rounded-2xl shadow-md border border-gray-100 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-800 transition-all text-left"
+      >
+        <div className="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400">
+          {item.icon}
+        </div>
+        <span className="flex-1 font-bold text-gray-900 dark:text-white text-sm">
+          {item.question}
+        </span>
+        <ChevronDown className={`w-5 h-5 text-gray-400 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
+      </button>
+
+      {isOpen && (
+        <div className="mt-1 mx-2 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-700">
+          <pre className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed whitespace-pre-wrap font-sans">
+            {item.answer}
+          </pre>
+        </div>
+      )}
+    </div>
+  );
+};
+
 export default function App() {
   const [activeDay, setActiveDay] = useState("3/6");
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -293,6 +410,19 @@ export default function App() {
               item={item}
               isLast={index === itineraryData[activeDay].length - 1}
             />
+          ))}
+        </div>
+
+        {/* FAQ 常用問題 */}
+        <div className="mt-16">
+          <div className="flex items-center gap-3 mb-6">
+            <HelpCircle className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+            <h2 className="text-2xl font-extrabold text-gray-900 dark:text-white tracking-tight">
+              常用問題 FAQ
+            </h2>
+          </div>
+          {faqData.map(item => (
+            <FAQItem key={item.id} item={item} />
           ))}
         </div>
 
