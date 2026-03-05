@@ -352,6 +352,7 @@ const FAQItem = ({ item }) => {
 
 export default function App() {
   const [activeDay, setActiveDay] = useState("3/6");
+  const [activeTab, setActiveTab] = useState("itinerary"); // "itinerary" | "faq"
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   return (
@@ -375,12 +376,12 @@ export default function App() {
         </div>
 
         {/* 日期切換 Tab */}
-        <div className="max-w-xl mx-auto px-6 pb-2 flex gap-4">
+        <div className="max-w-xl mx-auto px-6 pb-2 flex gap-3">
           {Object.keys(itineraryData).map(day => (
             <button
               key={day}
-              onClick={() => setActiveDay(day)}
-              className={`flex-1 py-3 text-sm font-bold rounded-xl transition-all ${activeDay === day
+              onClick={() => { setActiveDay(day); setActiveTab("itinerary"); }}
+              className={`flex-1 py-3 text-sm font-bold rounded-xl transition-all ${activeTab === "itinerary" && activeDay === day
                 ? 'bg-blue-600 text-white shadow-lg shadow-blue-200 dark:shadow-none'
                 : 'bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-gray-400'
                 }`}
@@ -388,43 +389,61 @@ export default function App() {
               Day {day === "3/6" ? "1" : "2"} ({day})
             </button>
           ))}
+          <button
+            onClick={() => setActiveTab("faq")}
+            className={`flex-1 py-3 text-sm font-bold rounded-xl transition-all flex items-center justify-center gap-1.5 ${activeTab === "faq"
+              ? 'bg-blue-600 text-white shadow-lg shadow-blue-200 dark:shadow-none'
+              : 'bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-gray-400'
+              }`}
+          >
+            <HelpCircle className="w-4 h-4" />
+            FAQ
+          </button>
         </div>
       </header>
 
       <main className="max-w-xl mx-auto px-6 pt-10 pb-24">
-        <div className="mb-10">
-          <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white tracking-tight mb-2">
-            {activeDay === "3/6" ? "首日抵港：美食與夜市" : "次日探索：海島與夜景"}
-          </h2>
-          <p className="text-gray-500 dark:text-gray-400">
-            {activeDay === "3/6"
-              ? "從台北啟程，直奔九龍心臟地帶體驗道地港味與霓虹夜色。"
-              : "穿越上環舊時光，搭船出海，迎接太平山頂之巔。"}
-          </p>
-        </div>
+        {activeTab === "itinerary" ? (
+          <>
+            <div className="mb-10">
+              <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white tracking-tight mb-2">
+                {activeDay === "3/6" ? "首日抵港：美食與夜市" : "次日探索：海島與夜景"}
+              </h2>
+              <p className="text-gray-500 dark:text-gray-400">
+                {activeDay === "3/6"
+                  ? "從台北啟程，直奔九龍心臟地帶體驗道地港味與霓虹夜色。"
+                  : "穿越上環舊時光，搭船出海，迎接太平山頂之巔。"}
+              </p>
+            </div>
 
-        <div className="relative">
-          {itineraryData[activeDay].map((item, index) => (
-            <TimelineItem
-              key={item.id}
-              item={item}
-              isLast={index === itineraryData[activeDay].length - 1}
-            />
-          ))}
-        </div>
-
-        {/* FAQ 常用問題 */}
-        <div className="mt-16">
-          <div className="flex items-center gap-3 mb-6">
-            <HelpCircle className="w-6 h-6 text-blue-600 dark:text-blue-400" />
-            <h2 className="text-2xl font-extrabold text-gray-900 dark:text-white tracking-tight">
-              常用問題 FAQ
-            </h2>
-          </div>
-          {faqData.map(item => (
-            <FAQItem key={item.id} item={item} />
-          ))}
-        </div>
+            <div className="relative">
+              {itineraryData[activeDay].map((item, index) => (
+                <TimelineItem
+                  key={item.id}
+                  item={item}
+                  isLast={index === itineraryData[activeDay].length - 1}
+                />
+              ))}
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="mb-10">
+              <div className="flex items-center gap-3 mb-2">
+                <HelpCircle className="w-7 h-7 text-blue-600 dark:text-blue-400" />
+                <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white tracking-tight">
+                  常用問題 FAQ
+                </h2>
+              </div>
+              <p className="text-gray-500 dark:text-gray-400">
+                行前須知、天氣穿著、八達通等常見問題一次解答。
+              </p>
+            </div>
+            {faqData.map(item => (
+              <FAQItem key={item.id} item={item} />
+            ))}
+          </>
+        )}
 
         <footer className="mt-16 text-center">
           <p className="text-xs text-gray-400 dark:text-gray-600 font-medium">
