@@ -5,7 +5,7 @@ import {
   IceCream, ExternalLink, HelpCircle, ChevronDown,
   CreditCard, ClipboardList, CloudSun, Shirt,
   Cloud, CloudRain, CloudDrizzle, CheckCircle2,
-  MessageCircle
+  MessageCircle, Volume2
 } from 'lucide-react';
 
 // 行程資料定義
@@ -331,55 +331,118 @@ const faqData = [
     id: "faq-5",
     icon: <MessageCircle className="w-5 h-5" />,
     question: "廣東話點餐萬用句",
-    answer: `【入座】
-• 搭檯 (daap toi) — 併桌／拼桌
-  → 用法：茶餐廳人多時，店員會問「搭檯得唔得？」（可以併桌嗎？），回答「得」即可
-• 幾多位？(gei do wai) — 幾位？
-  → 店員會在門口問你，直接比手指或說數字即可
-
-【點餐】
-• 唔該，我想要⋯⋯ (m goi, ngo soeng jiu) — 請問，我想要⋯⋯
-  → 萬用開場白，後面接餐點名稱
-• 例牌 (lai paai) — 正常份量
-  → 「例牌乾炒牛河」= 一份正常份量的乾炒牛河
-• 走冰 (zau bing) — 去冰
-  → 「凍檸茶走冰」= 冰檸檬茶去冰
-• 少甜 (siu tim) — 少糖
-  → 「少甜唔該」= 少糖，謝謝
-• 加底 (gaa dai) — 加飯 / 加麵
-  → 飯量不夠時使用
-
-【飲茶專用（如六安居）】
-• 點心紙 (dim sam zi) — 點心單
-  → 用筆在點心紙上剔選想吃的品項
-• 加水 (gaa seoi) — 加熱水（續茶）
-  → 把茶壺蓋打開放著，服務員就會來加水
-• 蝦餃 (haa gaau) — 蝦餃
-• 燒賣 (siu maai) — 燒賣
-• 叉燒包 (caa siu baau) — 叉燒包
-• 腸粉 (coeng fan) — 腸粉
-
-【結帳】
-• 埋單 (maai daan) — 結帳 / 買單
-  → 最常用！舉手喊「唔該，埋單！」即可
-• 唔該 (m goi) — 謝謝 / 請問 / 不好意思
-  → 萬用禮貌詞，叫人、道謝都可以用
-• 多謝 (do ze) — 謝謝（收到東西時用）
-  → 收到餐點或找零時說
-
-【冰室/茶餐廳專用（如華星冰室）】
-• 凍檸茶 (dung ning caa) — 冰檸檬茶
-• 絲襪奶茶 (si mat naai caa) — 絲襪奶茶
-• 菠蘿油 (bo lo jau) — 菠蘿包夾牛油
-• 炒蛋多士 (caau daan do si) — 炒蛋吐司
-• 走甜 (zau tim) — 完全不加糖
-
-【Tips】
-• 「唔該」是最實用的一個詞，幾乎所有場合都能用
+    customRender: true,
+    cantonese: true,
+    phrases: [
+      { category: "入座", items: [
+        { text: "搭檯", roman: "daap toi", meaning: "併桌／拼桌", tip: "茶餐廳人多時，店員會問「搭檯得唔得？」（可以併桌嗎？），回答「得」即可" },
+        { text: "幾多位？", roman: "gei do wai", meaning: "幾位？", tip: "店員會在門口問你，直接比手指或說數字即可" },
+      ]},
+      { category: "點餐", items: [
+        { text: "唔該，我想要", roman: "m goi, ngo soeng jiu", meaning: "請問，我想要⋯⋯", tip: "萬用開場白，後面接餐點名稱" },
+        { text: "例牌", roman: "lai paai", meaning: "正常份量", tip: "「例牌乾炒牛河」= 一份正常份量的乾炒牛河" },
+        { text: "走冰", roman: "zau bing", meaning: "去冰", tip: "「凍檸茶走冰」= 冰檸檬茶去冰" },
+        { text: "少甜", roman: "siu tim", meaning: "少糖", tip: "「少甜唔該」= 少糖，謝謝" },
+        { text: "加底", roman: "gaa dai", meaning: "加飯 / 加麵", tip: "飯量不夠時使用" },
+      ]},
+      { category: "飲茶專用（如六安居）", items: [
+        { text: "點心紙", roman: "dim sam zi", meaning: "點心單", tip: "用筆在點心紙上剔選想吃的品項" },
+        { text: "加水", roman: "gaa seoi", meaning: "加熱水（續茶）", tip: "把茶壺蓋打開放著，服務員就會來加水" },
+        { text: "蝦餃", roman: "haa gaau", meaning: "蝦餃" },
+        { text: "燒賣", roman: "siu maai", meaning: "燒賣" },
+        { text: "叉燒包", roman: "caa siu baau", meaning: "叉燒包" },
+        { text: "腸粉", roman: "coeng fan", meaning: "腸粉" },
+      ]},
+      { category: "結帳", items: [
+        { text: "唔該，埋單", roman: "m goi, maai daan", meaning: "結帳 / 買單", tip: "最常用！舉手喊「唔該，埋單！」即可" },
+        { text: "唔該", roman: "m goi", meaning: "謝謝 / 請問 / 不好意思", tip: "萬用禮貌詞，叫人、道謝都可以用" },
+        { text: "多謝", roman: "do ze", meaning: "謝謝（收到東西時用）", tip: "收到餐點或找零時說" },
+      ]},
+      { category: "冰室/茶餐廳專用（如華星冰室）", items: [
+        { text: "凍檸茶", roman: "dung ning caa", meaning: "冰檸檬茶" },
+        { text: "絲襪奶茶", roman: "si mat naai caa", meaning: "絲襪奶茶" },
+        { text: "菠蘿油", roman: "bo lo jau", meaning: "菠蘿包夾牛油" },
+        { text: "炒蛋多士", roman: "caau daan do si", meaning: "炒蛋吐司" },
+        { text: "走甜", roman: "zau tim", meaning: "完全不加糖" },
+      ]},
+    ],
+    tips: `• 「唔該」是最實用的一個詞，幾乎所有場合都能用
 • 不確定時，指著菜單說「呢個」(ni go，這個) 也完全 OK
 • 大部分餐廳服務員都能聽懂普通話，別太緊張！`
   }
 ];
+
+const SpeakButton = ({ text }) => {
+  const [speaking, setSpeaking] = useState(false);
+
+  const speak = (e) => {
+    e.stopPropagation();
+    if (speaking) {
+      window.speechSynthesis.cancel();
+      setSpeaking(false);
+      return;
+    }
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'zh-HK';
+    utterance.rate = 0.8;
+    utterance.onend = () => setSpeaking(false);
+    utterance.onerror = () => setSpeaking(false);
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(utterance);
+    setSpeaking(true);
+  };
+
+  return (
+    <button
+      onClick={speak}
+      className={`flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full transition-colors ${speaking ? 'bg-blue-600 text-white' : 'bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400 hover:bg-blue-200 dark:hover:bg-blue-800/50'}`}
+      aria-label={`播放「${text}」的廣東話發音`}
+    >
+      <Volume2 className="w-4 h-4" />
+    </button>
+  );
+};
+
+const CantonesePhrasesRenderer = ({ phrases, tips }) => (
+  <div className="space-y-4">
+    {phrases.map((group, gi) => (
+      <div key={gi}>
+        <h4 className="text-xs font-bold text-blue-600 dark:text-blue-400 mb-2 uppercase tracking-wider">
+          {group.category}
+        </h4>
+        <div className="space-y-2">
+          {group.items.map((phrase, pi) => (
+            <div key={pi} className="bg-white dark:bg-gray-800 rounded-xl p-3 border border-gray-100 dark:border-gray-700">
+              <div className="flex items-center gap-3">
+                <SpeakButton text={phrase.text} />
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-baseline gap-2 flex-wrap">
+                    <span className="text-base font-bold text-gray-900 dark:text-white">{phrase.text}</span>
+                    <span className="text-xs text-blue-500 dark:text-blue-400 font-mono">{phrase.roman}</span>
+                  </div>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">{phrase.meaning}</p>
+                </div>
+              </div>
+              {phrase.tip && (
+                <p className="text-xs text-gray-400 dark:text-gray-500 mt-2 ml-11">
+                  {phrase.tip}
+                </p>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    ))}
+    {tips && (
+      <div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700">
+        <h4 className="text-xs font-bold text-blue-600 dark:text-blue-400 mb-2 uppercase tracking-wider">Tips</h4>
+        <pre className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed whitespace-pre-wrap font-sans">
+          {tips}
+        </pre>
+      </div>
+    )}
+  </div>
+);
 
 const FAQItem = ({ item }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -401,7 +464,9 @@ const FAQItem = ({ item }) => {
 
       {isOpen && (
         <div className="mt-1 mx-2 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-700">
-          {item.customRender && item.weather ? (
+          {item.customRender && item.cantonese && item.phrases ? (
+            <CantonesePhrasesRenderer phrases={item.phrases} tips={item.tips} />
+          ) : item.customRender && item.weather ? (
             <>
               <div className="grid grid-cols-2 gap-3 mb-4">
                 {item.weather.map((w, i) => (
