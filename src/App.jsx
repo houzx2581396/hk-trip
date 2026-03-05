@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   MapPin, Clock, Plane, Home, Utensils, Camera, Moon,
   Navigation, Sun, Ticket, Coffee, Ship, Mountain,
   IceCream, ExternalLink, HelpCircle, ChevronDown,
   CreditCard, ClipboardList, CloudSun, Shirt,
-  Cloud, CloudRain, CloudDrizzle
+  Cloud, CloudRain, CloudDrizzle, CheckCircle2
 } from 'lucide-react';
 
 // 行程資料定義
@@ -166,25 +166,29 @@ const itineraryData = {
   ]
 };
 
-const TimelineItem = ({ item, isLast }) => {
+const TimelineItem = ({ item, isLast, completed, onToggle }) => {
   return (
     <div
-      className="relative flex flex-col mb-10 group cursor-pointer"
+      className={`relative flex flex-col mb-10 group cursor-pointer transition-opacity duration-300 ${completed ? 'opacity-60' : ''}`}
       onClick={() => window.location.href = item.link}
     >
       {!isLast && (
         <span
-          className="absolute left-6 top-12 h-full w-0.5 bg-gray-200 dark:bg-gray-700"
+          className={`absolute left-6 top-12 h-full w-0.5 ${completed ? 'bg-gray-300 dark:bg-gray-600' : 'bg-gray-200 dark:bg-gray-700'}`}
           aria-hidden="true"
         />
       )}
 
       <div className="flex items-start gap-5">
-        <div className={`relative z-10 flex flex-shrink-0 items-center justify-center w-12 h-12 rounded-full text-white shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:rotate-6 ${item.color}`}>
-          {item.icon}
-        </div>
+        <button
+          onClick={(e) => { e.stopPropagation(); onToggle(item.id); }}
+          className={`relative z-10 flex flex-shrink-0 items-center justify-center w-12 h-12 rounded-full text-white shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:rotate-6 ${completed ? 'bg-gray-400 dark:bg-gray-600' : item.color}`}
+          aria-label={completed ? '標記為未完成' : '標記為已完成'}
+        >
+          {completed ? <CheckCircle2 className="w-6 h-6" /> : item.icon}
+        </button>
 
-        <div className="flex-1 bg-white dark:bg-gray-800 p-5 rounded-2xl shadow-md border border-gray-100 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-800 transition-all">
+        <div className={`flex-1 p-5 rounded-2xl shadow-md border transition-all ${completed ? 'bg-gray-50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700' : 'bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-800'}`}>
           <div className="flex justify-between items-center mb-3">
             <div className="flex items-center space-x-2 bg-gray-100 dark:bg-gray-700 px-3 py-1 rounded-full">
               <Clock className="w-3.5 h-3.5 text-gray-500 dark:text-gray-400" />
@@ -192,21 +196,25 @@ const TimelineItem = ({ item, isLast }) => {
                 {item.time}
               </span>
             </div>
-            <div className="p-2 bg-blue-50 text-blue-600 rounded-full dark:bg-blue-900/30 dark:text-blue-400">
-              <Navigation className="w-4 h-4" />
-            </div>
+            <button
+              onClick={(e) => { e.stopPropagation(); onToggle(item.id); }}
+              className={`p-2 rounded-full transition-colors ${completed ? 'bg-green-100 text-green-600 dark:bg-green-900/30 dark:text-green-400' : 'bg-blue-50 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400 hover:bg-green-50 hover:text-green-500'}`}
+              aria-label={completed ? '標記為未完成' : '標記為已完成'}
+            >
+              {completed ? <CheckCircle2 className="w-4 h-4" /> : <Navigation className="w-4 h-4" />}
+            </button>
           </div>
 
-          <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1 leading-tight">
+          <h3 className={`text-lg font-bold mb-1 leading-tight ${completed ? 'text-gray-400 dark:text-gray-500 line-through' : 'text-gray-900 dark:text-white'}`}>
             {item.title}
           </h3>
 
-          <div className="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-3 font-medium">
-            <MapPin className="w-3.5 h-3.5 mr-1 text-red-500" />
+          <div className={`flex items-center text-sm mb-3 font-medium ${completed ? 'text-gray-400 dark:text-gray-500 line-through' : 'text-gray-500 dark:text-gray-400'}`}>
+            <MapPin className={`w-3.5 h-3.5 mr-1 ${completed ? 'text-gray-400' : 'text-red-500'}`} />
             {item.location}
           </div>
 
-          <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed mb-2">
+          <p className={`text-sm leading-relaxed mb-2 ${completed ? 'text-gray-400 dark:text-gray-500 line-through' : 'text-gray-600 dark:text-gray-300'}`}>
             {item.description}
           </p>
 
@@ -225,7 +233,7 @@ const TimelineItem = ({ item, isLast }) => {
           )}
 
           <div className="mt-4 pt-3 border-t border-gray-50 dark:border-gray-700 flex justify-end items-center">
-            <span className="text-xs text-blue-500 font-semibold group-hover:translate-x-1 transition-transform">
+            <span className={`text-xs font-semibold group-hover:translate-x-1 transition-transform ${completed ? 'text-gray-400' : 'text-blue-500'}`}>
               點擊查看地圖 →
             </span>
           </div>
@@ -371,6 +379,26 @@ export default function App() {
   const [activeDay, setActiveDay] = useState("3/6");
   const [activeTab, setActiveTab] = useState("itinerary"); // "itinerary" | "faq"
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [completedItems, setCompletedItems] = useState(() => {
+    try {
+      const saved = localStorage.getItem('hk-trip-completed');
+      return saved ? JSON.parse(saved) : {};
+    } catch { return {}; }
+  });
+
+  useEffect(() => {
+    localStorage.setItem('hk-trip-completed', JSON.stringify(completedItems));
+  }, [completedItems]);
+
+  const toggleComplete = (id) => {
+    setCompletedItems(prev => ({ ...prev, [id]: !prev[id] }));
+  };
+
+  const getProgress = (day) => {
+    const items = itineraryData[day];
+    const done = items.filter(item => completedItems[item.id]).length;
+    return { done, total: items.length, percent: Math.round((done / items.length) * 100) };
+  };
 
   return (
     <div className={`min-h-screen transition-colors duration-300 ${isDarkMode ? 'dark bg-gray-950' : 'bg-gray-50'}`}>
@@ -431,6 +459,34 @@ export default function App() {
                   ? "從台北啟程，直奔九龍心臟地帶體驗道地港味與霓虹夜色。"
                   : "穿越上環舊時光，搭船出海，迎接太平山頂之巔。"}
               </p>
+
+              {/* 行程進度追蹤 */}
+              {(() => {
+                const { done, total, percent } = getProgress(activeDay);
+                return (
+                  <div className="mt-5 p-4 bg-white dark:bg-gray-800 rounded-2xl shadow-md border border-gray-100 dark:border-gray-700">
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="text-sm font-bold text-gray-700 dark:text-gray-200">
+                        行程進度
+                      </span>
+                      <span className={`text-sm font-bold ${percent === 100 ? 'text-green-500' : 'text-blue-600 dark:text-blue-400'}`}>
+                        {done}/{total} 已完成 ({percent}%)
+                      </span>
+                    </div>
+                    <div className="w-full h-2.5 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                      <div
+                        className={`h-full rounded-full transition-all duration-500 ease-out ${percent === 100 ? 'bg-green-500' : 'bg-blue-600'}`}
+                        style={{ width: `${percent}%` }}
+                      />
+                    </div>
+                    {percent === 100 && (
+                      <p className="text-xs text-green-500 font-bold mt-2 text-center">
+                        All Clear! 今日行程全部完成!
+                      </p>
+                    )}
+                  </div>
+                );
+              })()}
             </div>
 
             <div className="relative">
@@ -439,6 +495,8 @@ export default function App() {
                   key={item.id}
                   item={item}
                   isLast={index === itineraryData[activeDay].length - 1}
+                  completed={!!completedItems[item.id]}
+                  onToggle={toggleComplete}
                 />
               ))}
             </div>
